@@ -307,44 +307,47 @@
                         <thead class=" text-primary">
                             <tr><th scope="col">Name</th>
                             <th scope="col">Email</th>
+                            <th scope="col">Role Action</th>
                             <th scope="col">Creation Date</th>
                             <th scope="col"></th>
                         </tr></thead>
                         <tbody>
-                                                                <tr>
-                                    <td>Admin Admin</td>
-                                    <td>
-                                        <a href="mailto:admin@white.com">admin@white.com</a>
-                                    </td>
-                                    <td>25/02/2020 09:11</td>
-                                    <td class="text-right">
-                                                                                        <div class="dropdown">
-                                                <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                    <i class="fas fa-ellipsis-v"></i>
-                                                </a>
-                                                <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                                                                                                <a class="dropdown-item" href="#">Edit</a>
-                                                                                                        </div>
-                                            </div>
-                                                                                </td>
-                                </tr>
-                                                        </tbody>
+                            @foreach ($data as $d)
+                            <tr>
+                                <td>{{ $d->name }}</td>
+                                <td>{{ $d->email }}</td>
+                                <td class="align-baseline"> @if ($d->role == 1)
+                                    <div class="text-left">
+                                        <span class="btn btn-sm btn-success">Admin</span>
+                                    </div>
+                                @else
+                                    <div class="text-left">
+                                        <span class="btn btn-sm btn-warning">User</span>
+                                    </div>
+                                @endif</td>
+                                <td>{{ $d->created_at }}</td>
+                                <td class="text-right">
+                                    <div class="dropdown">
+                                        <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="fas fa-ellipsis-v"></i>
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                                            <a class="dropdown-item" href="#">Edit</a>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
                     </table>
                 </div>
-                
             </div>
-            
             <div class="card-footer py-4">
-                
                 <nav class="d-flex justify-content-end" aria-label="...">
-                    
+                     
                 </nav>
             </div>
         </div>
-        <div class="alert alert-danger">
-            <span>
-              <b> </b> This is a PRO feature!</span>
-          </div>
     </div>
 </div>
                 </div>
