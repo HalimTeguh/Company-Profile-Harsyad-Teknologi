@@ -68,20 +68,30 @@
 
     <!-- Google Tag Manager -->
     <script>
-        (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-            'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-            })(window,document,'script','dataLayer','GTM-NKDMSK6');
+        (function(w, d, s, l, i) {
+            w[l] = w[l] || [];
+            w[l].push({
+                'gtm.start': new Date().getTime()
+                , event: 'gtm.js'
+            });
+            var f = d.getElementsByTagName(s)[0]
+                , j = d.createElement(s)
+                , dl = l != 'dataLayer' ? '&l=' + l : '';
+            j.async = true;
+            j.src =
+                'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+            f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-NKDMSK6');
+
     </script>
     <!-- End Google Tag Manager -->
     <script>
         // Facebook Pixel Code Don't Delete
-            ! function(f, b, e, v, n, t, s) {
+        ! function(f, b, e, v, n, t, s) {
             if (f.fbq) return;
             n = f.fbq = function() {
                 n.callMethod ?
-                n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+                    n.callMethod.apply(n, arguments) : n.queue.push(arguments)
             };
             if (!f._fbq) f._fbq = n;
             n.push = n;
@@ -93,14 +103,15 @@
             t.src = v;
             s = b.getElementsByTagName(e)[0];
             s.parentNode.insertBefore(t, s)
-            }(window,
-            document, 'script', '//connect.facebook.net/en_US/fbevents.js');
-            try {
+        }(window
+            , document, 'script', '//connect.facebook.net/en_US/fbevents.js');
+        try {
             fbq('init', '111649226022273');
             fbq('track', "PageView");
-            } catch (err) {
+        } catch (err) {
             console.log('Facebook Track Error:', err);
-            }
+        }
+
     </script>
 </head>
 
@@ -311,7 +322,6 @@
 
             <div class="content">
                 <div class="row">
-<<<<<<< HEAD
                     <div class="col-8">
                         <h4 class="card-title">Users</h4>
                     </div>
@@ -319,18 +329,21 @@
                         <a href="#" class="btn btn-sm btn-primary">Add user</a>
                     </div>
                 </div>
-            </div>
+                {{--
+            </div> --}}
             <div class="card-body">
-                
+
                 <div class="">
                     <table class="table tablesorter " id="">
                         <thead class=" text-primary">
-                            <tr><th scope="col">Name</th>
-                            <th scope="col">Email</th>
-                            <th scope="col">Role Action</th>
-                            <th scope="col">Creation Date</th>
-                            <th scope="col"></th>
-                        </tr></thead>
+                            <tr>
+                                <th scope="col">Name</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Role Action</th>
+                                <th scope="col">Creation Date</th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
                         <tbody>
                             @foreach ($data as $d)
                             <tr>
@@ -340,15 +353,17 @@
                                     <div class="text-left">
                                         <span class="btn btn-sm btn-success">Admin</span>
                                     </div>
-                                @else
+                                    @else
                                     <div class="text-left">
                                         <span class="btn btn-sm btn-warning">User</span>
                                     </div>
-                                @endif</td>
+                                    @endif
+                                </td>
                                 <td>{{ $d->created_at }}</td>
                                 <td class="text-right">
                                     <div class="dropdown">
-                                        <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <a class="btn btn-sm btn-icon-only text-light" href="#" role="button"
+                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             <i class="fas fa-ellipsis-v"></i>
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
@@ -364,117 +379,61 @@
             </div>
             <div class="card-footer py-4">
                 <nav class="d-flex justify-content-end" aria-label="...">
-                     
+
                 </nav>
             </div>
         </div>
     </div>
-</div>
-                </div>
-=======
-                    <div class="col-md-12">
-                        <div class="card ">
-                            <div class="card-header">
-                                <div class="row">
-                                    <div class="col-8">
-                                        <h4 class="card-title">Users</h4>
-                                    </div>
-                                    <div class="col-4 text-right">
-                                        <a href="=================================" class="btn btn-sm btn-primary">Add user</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card-body">
->>>>>>> 633231f0e66211beb3c83203fcb778026e0a0201
+    </div>
+    </div>
 
-                                <div class="">
-                                    <table class="table tablesorter " id="">
-                                        <thead class=" text-primary">
-                                            <tr>
-                                                <th scope="col">Name</th>
-                                                <th scope="col">Email</th>
-                                                <th scope="col">Creation Date</th>
-                                                <th scope="col"></th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>Admin Admin</td>
-                                                <td>
-                                                    <a href="mailto:admin@white.com">admin@white.com</a>
-                                                </td>
-                                                <td>25/02/2020 09:11</td>
-                                                <td class="text-right">
-                                                    <div class="dropdown">
-                                                        <a class="btn btn-sm btn-icon-only text-light" href="#"
-                                                            role="button" data-toggle="dropdown" aria-haspopup="true"
-                                                            aria-expanded="false">
-                                                            <i class="fas fa-ellipsis-v"></i>
-                                                        </a>
-                                                        <div
-                                                            class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                                            <a class="dropdown-item" href="#">Edit</a>
-                                                        </div>
-                                                        <div
-                                                            class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                                            <a class="dropdown-item" href="#">Delete</a>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
 
-                            </div>
+    </div>
 
-                            <div class="card-footer py-4">
+    <div class="card-footer py-4">
 
-                                <nav class="d-flex justify-content-end" aria-label="...">
+        <nav class="d-flex justify-content-end" aria-label="...">
 
-                                </nav>
-                            </div>
-                        </div>
-                        <div class="alert alert-danger">
-                            <span>
-                                <b> </b> This is a PRO feature!</span>
-                        </div>
-                    </div>
-                </div>
+        </nav>
+    </div>
+    </div>
+
+    </div>
+    </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container-fluid">
+            <ul class="nav">
+                <li class="nav-item">
+                    <a href="https://creative-tim.com" target="blank" class="nav-link">
+                        Creative Tim
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="https://updivision.com" target="blank" class="nav-link">
+                        Updivision
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        About Us
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        Blog
+                    </a>
+                </li>
+            </ul>
+            <div class="copyright">
+                © 2020 made with <i class="tim-icons icon-heart-2"></i> by
+                <a href="https://creative-tim.com" target="_blank">Creative Tim</a> &amp;
+                <a href="https://updivision.com" target="_blank">Updivision</a> for a better web.
             </div>
-
-            <footer class="footer">
-                <div class="container-fluid">
-                    <ul class="nav">
-                        <li class="nav-item">
-                            <a href="https://creative-tim.com" target="blank" class="nav-link">
-                                Creative Tim
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="https://updivision.com" target="blank" class="nav-link">
-                                Updivision
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                About Us
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                Blog
-                            </a>
-                        </li>
-                    </ul>
-                    <div class="copyright">
-                        © 2020 made with <i class="tim-icons icon-heart-2"></i> by
-                        <a href="https://creative-tim.com" target="_blank">Creative Tim</a> &amp;
-                        <a href="https://updivision.com" target="_blank">Updivision</a> for a better web.
-                    </div>
-                </div>
-            </footer>
         </div>
+    </footer>
+    </div>
     </div>
     <form id="logout-form" action="{{route('logout')}}" method="POST" style="display: none;">
         @csrf
@@ -537,79 +496,79 @@
 
         <script>
             $(document).ready(function() {
-            $().ready(function() {
-                $sidebar = $('.sidebar');
-                $navbar = $('.navbar');
-                $main_panel = $('.main-panel');
+                $().ready(function() {
+                    $sidebar = $('.sidebar');
+                    $navbar = $('.navbar');
+                    $main_panel = $('.main-panel');
 
-                $full_page = $('.full-page');
+                    $full_page = $('.full-page');
 
-                $sidebar_responsive = $('body > .navbar-collapse');
-                sidebar_mini_active = true;
-                white_color = false;
+                    $sidebar_responsive = $('body > .navbar-collapse');
+                    sidebar_mini_active = true;
+                    white_color = false;
 
-                window_width = $(window).width();
+                    window_width = $(window).width();
 
-                fixed_plugin_open = $('.sidebar .sidebar-wrapper .nav li.active a p').html();
+                    fixed_plugin_open = $('.sidebar .sidebar-wrapper .nav li.active a p').html();
 
-                $('.fixed-plugin a').click(function(event) {
-                    if ($(this).hasClass('switch-trigger')) {
-                        if (event.stopPropagation) {
-                            event.stopPropagation();
-                    } else if (window.event) {
-                            window.event.cancelBubble = true;
+                    $('.fixed-plugin a').click(function(event) {
+                        if ($(this).hasClass('switch-trigger')) {
+                            if (event.stopPropagation) {
+                                event.stopPropagation();
+                            } else if (window.event) {
+                                window.event.cancelBubble = true;
+                            }
                         }
-                    }
-                });
+                    });
 
-                $('.fixed-plugin .background-color span').click(function() {
-                    $(this).siblings().removeClass('active');
-                    $(this).addClass('active');
+                    $('.fixed-plugin .background-color span').click(function() {
+                        $(this).siblings().removeClass('active');
+                        $(this).addClass('active');
 
-                    var new_color = $(this).data('color');
+                        var new_color = $(this).data('color');
 
-                    if ($sidebar.length != 0) {
-                        $sidebar.attr('data', new_color);
-                    }
+                        if ($sidebar.length != 0) {
+                            $sidebar.attr('data', new_color);
+                        }
 
-                    if ($main_panel.length != 0) {
-                        $main_panel.attr('data', new_color);
-                    }
+                        if ($main_panel.length != 0) {
+                            $main_panel.attr('data', new_color);
+                        }
 
-                    if ($full_page.length != 0) {
-                        $full_page.attr('filter-color', new_color);
-                    }
+                        if ($full_page.length != 0) {
+                            $full_page.attr('filter-color', new_color);
+                        }
 
-                    if ($sidebar_responsive.length != 0) {
-                        $sidebar_responsive.attr('data', new_color);
-                    }
-                });
+                        if ($sidebar_responsive.length != 0) {
+                            $sidebar_responsive.attr('data', new_color);
+                        }
+                    });
 
-                $('.switch-sidebar-mini input').on("switchChange.bootstrapSwitch", function() {
-                    var $btn = $(this);
+                    $('.switch-sidebar-mini input').on("switchChange.bootstrapSwitch", function() {
+                        var $btn = $(this);
 
-                    if (sidebar_mini_active == true) {
-                        $('body').removeClass('sidebar-mini');
-                        sidebar_mini_active = false;
-                        whiteDashboard.showSidebarMessage('Sidebar mini deactivated...');
-                    } else {
-                        $('body').addClass('sidebar-mini');
-                        sidebar_mini_active = true;
-                        whiteDashboard.showSidebarMessage('Sidebar mini activated...');
-                    }
+                        if (sidebar_mini_active == true) {
+                            $('body').removeClass('sidebar-mini');
+                            sidebar_mini_active = false;
+                            whiteDashboard.showSidebarMessage('Sidebar mini deactivated...');
+                        } else {
+                            $('body').addClass('sidebar-mini');
+                            sidebar_mini_active = true;
+                            whiteDashboard.showSidebarMessage('Sidebar mini activated...');
+                        }
 
-                    // we simulate the window Resize so the charts will get updated in realtime.
-                    var simulateWindowResize = setInterval(function() {
-                        window.dispatchEvent(new Event('resize'));
-                    }, 180);
+                        // we simulate the window Resize so the charts will get updated in realtime.
+                        var simulateWindowResize = setInterval(function() {
+                            window.dispatchEvent(new Event('resize'));
+                        }, 180);
 
-                    // we stop the simulation of Window Resize after the animations are completed
-                    setTimeout(function() {
-                        clearInterval(simulateWindowResize);
-                    }, 1000);
-                });
+                        // we stop the simulation of Window Resize after the animations are completed
+                        setTimeout(function() {
+                            clearInterval(simulateWindowResize);
+                        }, 1000);
+                    });
 
-                $('.switch-change-color input').on("switchChange.bootstrapSwitch", function() {
+                    $('.switch-change-color input').on("switchChange.bootstrapSwitch", function() {
                         var $btn = $(this);
 
                         if (white_color == true) {
@@ -628,17 +587,18 @@
 
                             white_color = true;
                         }
-                });
+                    });
 
-                $('.light-badge').click(function() {
-                    $('body').addClass('white-content');
-                });
+                    $('.light-badge').click(function() {
+                        $('body').addClass('white-content');
+                    });
 
-                $('.dark-badge').click(function() {
-                    $('body').removeClass('white-content');
+                    $('.dark-badge').click(function() {
+                        $('body').removeClass('white-content');
+                    });
                 });
             });
-        });
+
         </script>
         @stack('js')
 </body>
