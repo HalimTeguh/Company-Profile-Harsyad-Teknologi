@@ -1,4 +1,4 @@
-@extends('layouts.app', ['activePage' => 'map', 'titlePage' => ('Map')])
+@extends('layouts.app', ['activePage' => 'map', 'titlePage' => ('Map'), 'pageSlug' => 'documentation'])
 
 @section('content')
 <div id="map"></div>
