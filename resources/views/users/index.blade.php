@@ -163,6 +163,30 @@
                         </div>
                     </li>
                     <li>
+                        <a data-toggle="collapse" href="#customize-web" aria-expanded="true">
+                            <i class="fab fa-laravel"></i>
+                            <span class="nav-link-text">{{ ('Customize') }}</span>
+                            <b class="caret mt-1"></b>
+                        </a>
+
+                        <div class="collapse show" id="customize-web">
+                            <ul class="nav pl-4">
+                                <li>
+                                    <a href="#">
+                                        <i class="tim-icons icon-single-02"></i>
+                                        <p>{{ ('Menu') }}</p>
+                                    </a>
+                                </li>
+                                <li class="active">
+                                    <a href="#">
+                                        <i class="tim-icons icon-bullet-list-67"></i>
+                                        <p>{{ ('Text') }}</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
                         <a href="{{ route('pages.icons') }}">
                             <i class="tim-icons icon-atom"></i>
                             <p>{{ ('Icons') }}</p>
