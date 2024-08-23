@@ -43,6 +43,7 @@
                     </td>
                     <td>{{ $d->created_at }}</td>
                     <td class="text-right">
+
                         <div class="dropdown">
                             <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown"
                                 aria-haspopup="true" aria-expanded="false">
@@ -50,14 +51,13 @@
                             </a>
                             <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
                                 <button type="button" class="dropdown-item edit-button" data-toggle="modal"
-                                    data-id="{{ $d->id }}"
-                                    data-name="{{ $d->name }}"
-                                    data-email="{{ $d->email }}"
-                                    data-url="{{ route('user.update', $d->id) }}">
+                                    data-target="#editUser" data-id="{{ $d->id }}" data-name="{{ $d->name }}"
+                                    data-email="{{ $d->email }}" data-url="{{ route('user.update', $d->id) }}">
                                     Edit
                                 </button>
                             </div>
                         </div>
+
                     </td>
                 </tr>
                 @endforeach
@@ -120,8 +120,8 @@
 
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">{{ __('Save') }}</button>
+                    <button type="button" class="btn btn-secondary closeModal" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary closeModal">{{ __('Save') }}</button>
                 </div>
             </form>
         </div>
@@ -133,28 +133,36 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <form id="editUserForm" method="POST" action="">
-                @csrf
-                @method('PUT')
                 <div class="modal-header">
-                    <h5 class="modal-title" id="editUserLabel">Edit User</h5>
+                    <h5 class="modal-title h2 font-weight-bold" id="editUserLabel">Edit User</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <input type="hidden" id="edit-user-id" name="id">
-                    <div class="form-group">
-                        <label for="edit-name">Name</label>
-                        <input type="text" class="form-control" id="edit-name" name="name" required>
+                    @csrf
+                    @method('PUT')
+
+                    <div class="form-group{{ $errors->has('name') ? ' has-danger' : '' }}">
+                        <label>{{ __('Name') }}</label>
+                        <input id="edit-name" type="text" name="name"
+                            class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}"
+                            placeholder="{{ __('Name') }}" value="{{ old('name') }}">
+                        @include('alerts.feedback', ['field' => 'name'])
                     </div>
-                    <div class="form-group">
-                        <label for="edit-email">Email</label>
-                        <input type="email" class="form-control" id="edit-email" name="email" required>
+
+                    <div class="form-group{{ $errors->has('email') ? ' has-danger' : '' }}">
+                        <label>{{ __('Email address') }}</label>
+                        <input id="edit-email" type="email" name="email"
+                            class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}"
+                            placeholder="{{ __('Email address') }}" value="{{ old('email') }}">
+                        @include('alerts.feedback', ['field' => 'email'])
                     </div>
+
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal" aria-label="Close">Close</button>
-                    <button type="submit" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">{{ __('Save') }}</button>
                 </div>
             </form>
         </div>
@@ -162,57 +170,47 @@
 </div>
 
 
-
 @endsection
 
 @push('js')
 <script>
-    // $('#editUser').on('show.bs.modal', function (event) {
-    //     var button = $(event.relatedTarget);
-    //     var userId = button.data('id');
-    //     var userName = button.data('name');
-    //     var userEmail = button.data('email');
-
-    //     var modal = $(this);
-    //     modal.find('#edit-user-id').val(userId);
-    //     modal.find('#edit-name').val(userName);
-    //     modal.find('#edit-email').val(userEmail);
-    //     modal.find('form').attr('action', '{{ route('user.update', '') }}/' + userId);
-    // });
+    
 
     $(document).ready(function() {
         // Tampilkan modal jika ada kesalahan
         @if ($errors->any())
             $('#addUser').modal('show');
         @endif 
+
+        $('#addUser').on('shown.bs.modal', function () {
+            $(this).find('.closeModal').click(function () {
+                $('#addUser').modal('hide');
+            });
+        });
+
     });
-
-    // Event handler untuk menutup modal saat tombol Close diklik
-    $('#closeModalButton').click(function() {
-        $('#editUser').modal('hide');
-    });  
-
-
+    
+    
     $(document).ready(function() {
-    // Ketika tombol edit diklik
-    $('.edit-button').on('click', function() {
-        // Ambil data dari atribut data-*
-        var userId = $(this).data('id');
-        var userName = $(this).data('name');
-        var userEmail = $(this).data('email');
-        var userUpdateUrl = $(this).data('url');
 
-        // Isi form di dalam modal dengan data yang diambil
-        $('#edit-user-id').val(userId);
-        $('#edit-name').val(userName);
-        $('#edit-email').val(userEmail);
+        // Ketika tombol edit diklik
+        $('.edit-button').on('click', function() {
+            // Ambil data dari atribut data-*
+            var userId = $(this).data('id');
+            var userName = $(this).data('name');
+            var userEmail = $(this).data('email');
+            var userUpdateUrl = $(this).data('url');
 
-        // Atur action form untuk update
-        $('#editUserForm').attr('action', userUpdateUrl);
+            // Isi form di dalam modal dengan data yang diambil
+            $('#edit-user-id').val(userId);
+            $('#edit-name').val(userName);
+            $('#edit-email').val(userEmail);
 
-        // Tampilkan modal
-        $('#editUser').modal('show');
+            // Atur action form untuk update
+            $('#editUserForm').attr('action', userUpdateUrl);
+
+        });
+
     });
-});
 </script>
 @endpush
