@@ -1,4 +1,4 @@
-@extends('layouts.app', ['page' => ('Tables'), 'pageSlug' => 'tables'])
+@extends('layouts.app', ['page' => ('Tables'), 'pageSlug' => 'documentation'])
 
 @section('content')
 <div class="row">
