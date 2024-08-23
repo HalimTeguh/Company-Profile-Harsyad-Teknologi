@@ -63,10 +63,13 @@ class UserController extends Controller
     
             return redirect()->route('user.index')->with('success', 'User created successfully.');
         } catch (\Exception $e) {
-            dd($e);
+            return back()->withInput();
         }
     }
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> d0bfa52f85edae119c84e7a872aff10f544d8200
 }
