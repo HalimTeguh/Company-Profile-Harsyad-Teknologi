@@ -4,11 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
-<<<<<<< HEAD
 use App\Http\Requests\UserRequest;
 use Illuminate\Support\Facades\Hash;
-=======
->>>>>>> 575c2efc456cdc694fe3dc725694fbc7ca0d987c
 
 class UserController extends Controller
 {
@@ -24,7 +21,6 @@ class UserController extends Controller
         return view('users.index', ['users' => $model->paginate(15)], ['data' => $user]);
     }
 
-<<<<<<< HEAD
     public function edit(Request $request, $id)
     {
         $request;
@@ -38,7 +34,6 @@ class UserController extends Controller
         return redirect()->back()->with('success', 'User updated successfully!');
     }
 
-=======
     /**
      * Show the form for creating a new resource.
      */
@@ -72,7 +67,4 @@ class UserController extends Controller
         }
     }
 
-
-
->>>>>>> 575c2efc456cdc694fe3dc725694fbc7ca0d987c
 }
