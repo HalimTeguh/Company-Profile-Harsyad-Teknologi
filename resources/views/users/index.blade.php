@@ -367,7 +367,7 @@
                                             <i class="fas fa-ellipsis-v"></i>
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                            <a class="dropdown-item" href="#">Edit</a>
+                                            <a class="dropdown-item" data-toggle="modal" data-target="#exampleModal" data-id="{{ $d->id }}" data-name="{{ $d->name }}" data-email="{{ $d->email }}">Edit</a>
                                         </div>
                                     </div>
                                 </td>
@@ -377,30 +377,59 @@
                     </table>
                 </div>
             </div>
+  
+            <!-- Modal Structure -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <!-- Modal Header -->
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Edit Pengguna</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Tutup">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        
+                        <!-- Modal Body -->
+                        <div class="modal-body">
+                            <form method="post" action="{{ route('user.edit')}}" autocomplete="off">
+                                <div class="card-body">
+                                    @csrf
+                                    @method('put')
+
+                                    @include('alerts.success')
+
+                                    <div class="form-group{{ $errors->has('name') ? ' has-danger' : '' }}">
+                                        <label>{{ ('Nama') }}</label>
+                                        <input type="text" name="name" id="name" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" value="">
+                                        @include('alerts.feedback', ['field' => 'name'])
+                                    </div>
+
+                                    <div class="form-group{{ $errors->has('email') ? ' has-danger' : '' }}">
+                                        <label>{{ ('Alamat Email') }}</label>
+                                        <input type="email" name="email" id="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" value="">
+                                        @include('alerts.feedback', ['field' => 'email'])
+                                    </div>
+                                </div>
+
+                                <!-- Modal Footer -->
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                                    <button type="submit" class="btn btn-primary">{{ ('Simpan') }}</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
             <div class="card-footer py-4">
                 <nav class="d-flex justify-content-end" aria-label="...">
 
                 </nav>
             </div>
         </div>
-    </div>
-    </div>
-    </div>
-
-
-    </div>
-
-    <div class="card-footer py-4">
-
-        <nav class="d-flex justify-content-end" aria-label="...">
-
-        </nav>
-    </div>
-    </div>
-
-    </div>
-    </div>
-    </div>
 
     <footer class="footer">
         <div class="container-fluid">
@@ -477,6 +506,7 @@
                 </ul>
             </div>
         </div>
+        
         <script src="{{ asset('white') }}/js/core/jquery.min.js"></script>
         <script src="{{ asset('white') }}/js/core/popper.min.js"></script>
         <script src="{{ asset('white') }}/js/core/bootstrap.min.js"></script>
@@ -493,6 +523,55 @@
         <script src="{{ asset('white') }}/js/theme.js"></script>
 
         @stack('js')
+
+        <script>
+            // $('#exampleModal').on('show.bs.modal', function (event) {
+            //     var button = $(event.relatedTarget); // Tombol yang memicu modal
+            //     var id = button.data('id'); // Ambil ID dari data-* atribut
+            //     var name = button.data('name');
+            //     var email = button.data('email');
+
+            //     var modal = $(this);
+            //     modal.find('.modal-body #name').val(name);
+            //     modal.find('.modal-body #email').val(email);
+            //     modal.find('.modal-body form').attr('action', '/user/' + name); // Menetapkan URL aksi
+            // });
+
+        
+            // Event listener untuk tombol Save Changes
+            // $('#saveChanges').on('click', function () {
+            //     // Ambil data dari form
+            //     var id = $('#userId').val();
+            //     var name = $('#name').val();
+            //     var email = $('#email').val();
+                
+            //     // Lakukan aksi yang diperlukan, misalnya mengirim data ke server
+            //     console.log('ID:', id);
+            //     console.log('Name:', name);
+            //     console.log('Email:', email);
+                
+            //     // Contoh pengiriman data dengan AJAX (ganti URL dan data sesuai kebutuhan)
+            //     $.ajax({
+            //         url: 'user/edit', // Ganti dengan URL endpoint Anda
+            //         method: 'PUT',
+            //         data: {
+            //             id: id,
+            //             name: name,
+            //             email: email
+            //         },
+            //         success: function(response) {
+            //             // Tindakan setelah berhasil
+            //             alert('Data updated successfully!');
+            //             $('#exampleModal').modal('hide'); // Tutup modal
+            //         },
+            //         error: function(xhr, status, error) {
+            //             // Tindakan jika ada kesalahan
+            //             alert('An error occurred: ' + error);
+            //         }
+            //     });
+            // });
+        </script>
+        
 
         <script>
             $(document).ready(function() {
