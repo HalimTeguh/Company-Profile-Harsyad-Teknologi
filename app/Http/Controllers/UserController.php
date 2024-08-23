@@ -21,18 +21,19 @@ class UserController extends Controller
         return view('users.index', ['users' => $model->paginate(15)], ['data' => $user]);
     }
 
-    public function edit(Request $request, $id)
+    public function update(Request $request, $id)
     {
-        $request;
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|max:255|unique:users,email,'.$id,
+        ]);
+
         $user = User::findOrFail($id);
+        $user->update($validated);
 
-
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->save();
-
-        return redirect()->back()->with('success', 'User updated successfully!');
+        return redirect()->route('user.index')->withStatus(__('User successfully updated.'));
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -47,29 +48,20 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        try {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email',
+            'email' => 'required|email|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
         ]);
 
-            $user = new User();
-            $user->name = $validated['name'];
-            $user->email = $validated['email'];
-            $user->role = 0;
-            $user->password = bcrypt($validated['password']);
-            $user->save();
-    
-            return redirect()->route('user.index')->with('success', 'User created successfully.');
-        } catch (\Exception $e) {
-            return back()->withInput();
-        }
+        User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => bcrypt($request->password),
+            'role' => 0,
+        ]);
+
+        return redirect()->route('user.index')->withStatus(__('Profile successfully updated.'));
     }
 
-<<<<<<< HEAD
-
-
-=======
->>>>>>> d0bfa52f85edae119c84e7a872aff10f544d8200
 }

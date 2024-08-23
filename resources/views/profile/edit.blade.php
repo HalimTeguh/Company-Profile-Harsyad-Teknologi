@@ -7,27 +7,27 @@
                 <div class="card-header">
                     <h5 class="title">{{ ('Edit Profile') }}</h5>
                 </div>
-                <form method="post" action="{{ route('profile.update') }}" autocomplete="off">
+                <form id="update-form" method="post" action="{{ route('profile.update') }}" autocomplete="off">
                     <div class="card-body">
-                            @csrf
-                            @method('put')
-
-                            @include('alerts.success')
-
-                            <div class="form-group{{ $errors->has('name') ? ' has-danger' : '' }}">
-                                <label>{{ ('Name') }}</label>
-                                <input type="text" name="name" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" placeholder="{{ ('Name') }}" value="{{ old('name', auth()->user()->name) }}">
-                                @include('alerts.feedback', ['field' => 'name'])
-                            </div>
-
-                            <div class="form-group{{ $errors->has('email') ? ' has-danger' : '' }}">
-                                <label>{{ ('Email address') }}</label>
-                                <input type="email" name="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" placeholder="{{ ('Email address') }}" value="{{ old('email', auth()->user()->email) }}">
-                                @include('alerts.feedback', ['field' => 'email'])
-                            </div>
+                        @csrf
+                        @method('put')
+                
+                        @include('alerts.success')
+                
+                        <div class="form-group{{ $errors->has('name') ? ' has-danger' : '' }}">
+                            <label>{{ ('Name') }}</label>
+                            <input type="text" name="name" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" placeholder="{{ ('Name') }}" value="{{ old('name', auth()->user()->name) }}">
+                            @include('alerts.feedback', ['field' => 'name'])
+                        </div>
+                
+                        <div class="form-group{{ $errors->has('email') ? ' has-danger' : '' }}">
+                            <label>{{ ('Email address') }}</label>
+                            <input type="email" name="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" placeholder="{{ ('Email address') }}" value="{{ old('email', auth()->user()->email) }}">
+                            @include('alerts.feedback', ['field' => 'email'])
+                        </div>
                     </div>
                     <div class="card-footer">
-                        <button type="submit" class="btn btn-fill btn-primary">{{ ('Save') }}</button>
+                        <button id="save-button" type="submit" class="btn btn-fill btn-primary" disabled>{{ ('Save') }}</button>
                     </div>
                 </form>
             </div>
@@ -104,3 +104,38 @@
         </div>
     </div>
 @endsection
+@push('js')
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var form = document.getElementById('update-form');
+        var saveButton = document.getElementById('save-button');
+        
+        // Cache initial form values
+        var initialValues = {};
+        new FormData(form).forEach((value, key) => initialValues[key] = value);
+
+        // Function to check if form values have changed
+        function checkFormChanges() {
+            var hasChanged = false;
+            var formData = new FormData(form);
+            
+            for (var key in initialValues) {
+                if (formData.get(key) !== initialValues[key]) {
+                    hasChanged = true;
+                    break;
+                }
+            }
+
+            saveButton.disabled = !hasChanged;
+        }
+
+        // Add event listeners to inputs
+        form.querySelectorAll('input').forEach(input => {
+            input.addEventListener('input', checkFormChanges);
+        });
+
+        // Initial check
+        checkFormChanges();
+    });
+</script>
+@endpush
