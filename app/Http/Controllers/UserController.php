@@ -15,10 +15,31 @@ class UserController extends Controller
      * @param  \App\Models\User  $model
      * @return \Illuminate\View\View
      */
-    public function index(User $model)
+    public function index(Request $request)
     {
-        $user = User::get();
-        return view('users.index', ['users' => $model->paginate(15)], ['data' => $user]);
+        // Mengambil data pencarian dan filter
+        $search = $request->input('search');
+        $view = $request->input('view', 'paginated'); // default 'paginated'
+        $perPage = $request->input('perPage', 5); // default 5
+
+        // Query dasar
+        $query = User::query();
+
+        // Filter berdasarkan pencarian
+        if ($search) {
+            $query->where('name', 'like', "%{$search}%")
+                  ->orWhere('email', 'like', "%{$search}%");
+        }
+
+        // Menentukan hasil yang akan ditampilkan
+        if ($view === 'all') {
+            $data = $query->get(); // Mengambil semua data
+        } else {
+            $data = $query->paginate($perPage); // Mengambil data dengan paginasi
+        }
+
+        // Mengirim data ke tampilan
+        return view('users.index', compact('data'));
     }
 
     public function update(Request $request, $id)

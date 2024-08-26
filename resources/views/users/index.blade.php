@@ -14,7 +14,23 @@
 
 <div class="card-body">
     <div>
+        <!-- Form Pencarian -->
+        <form method="GET" action="{{ route('user.index') }}" class="form-inline mb-3">
+            <input type="text" name="search" class="form-control form-control-sm" placeholder="Search by name or email" value="{{ request()->get('search') }}" style="width: 200px;">
+            <select name="view" class="form-control form-control-sm ml-2">
+                <option value="paginated" {{ request()->get('view') === 'paginated' ? 'selected' : '' }}>Pages</option>
+                <option value="all" {{ request()->get('view') === 'all' ? 'selected' : '' }}>All</option>
+            </select>
+            <select name="perPage" class="form-control form-control-sm ml-2" {{ request()->get('view') === 'all' ? 'disabled' : '' }}>
+                <option value="5" {{ request()->get('perPage') == 5 ? 'selected' : '' }}>5</option>
+                <option value="25" {{ request()->get('perPage') == 25 ? 'selected' : '' }}>25</option>
+                <option value="50" {{ request()->get('perPage') == 50 ? 'selected' : '' }}>50</option>
+            </select>
+            <button type="submit" class="btn btn-sm btn-primary ml-2">Apply</button>
+        </form>
+
         @include('alerts.success')
+
         <table class="table tablesorter" id="">
             <thead class="text-primary">
                 <tr>
@@ -67,10 +83,45 @@
 </div>
 
 <div class="card-footer py-4">
-    <nav class="d-flex justify-content-end" aria-label="...">
-        <!-- Pagination, if necessary -->
+    <nav class="d-flex justify-content-start" aria-label="...">
+        <!-- Link Pagination -->
+        @if ($data instanceof \Illuminate\Pagination\LengthAwarePaginator)
+            <ul class="pagination">
+                <!-- Tombol Previous -->
+                @if ($data->onFirstPage())
+                    <li class="page-item disabled">
+                        <span class="page-link">Previous</span>
+                    </li>
+                @else
+                    <li class="page-item">
+                        <a class="page-link" href="{{ $data->previousPageUrl() }}" rel="prev">Previous</a>
+                    </li>
+                @endif
+
+                <!-- Nomor Halaman -->
+                @foreach ($data->links()->elements[0] as $page => $url)
+                    @if ($page == $data->currentPage())
+                        <li class="page-item active"><span class="page-link">{{ $page }}</span></li>
+                    @else
+                        <li class="page-item"><a class="page-link" href="{{ $url }}">{{ $page }}</a></li>
+                    @endif
+                @endforeach
+
+                <!-- Tombol Next -->
+                @if ($data->hasMorePages())
+                    <li class="page-item">
+                        <a class="page-link" href="{{ $data->nextPageUrl() }}" rel="next">Next</a>
+                    </li>
+                @else
+                    <li class="page-item disabled">
+                        <span class="page-link">Next</span>
+                    </li>
+                @endif
+            </ul>
+        @endif
     </nav>
 </div>
+
 
 <!-- Modal Add User -->
 <div class="modal fade" id="addUser" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -174,6 +225,20 @@
 
 @push('js')
 <script>
+    document.querySelector('select[name="view"]').addEventListener('change', function() {
+        const view = this.value;
+        const perPageDropdown = document.querySelector('select[name="perPage"]');
+
+        if (view === 'all') {
+            perPageDropdown.disabled = true;
+        } else {
+            perPageDropdown.disabled = false;
+        }
+
+        // Submit form otomatis saat view berubah
+        this.form.submit();
+    });
+
     $(document).ready(function() {
         // Tampilkan modal Add User jika ada kesalahan terkait form Add User
         @if ($errors->has('name') || $errors->has('email') || $errors->has('password') || $errors->has('password_confirmation'))
