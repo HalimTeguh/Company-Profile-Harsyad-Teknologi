@@ -143,26 +143,26 @@
                     @csrf
                     @method('PUT')
 
-                    <div class="form-group{{ $errors->has('name') ? ' has-danger' : '' }}">
+                    <div class="form-group{{ $errors->has('edit_name') ? ' has-danger' : '' }}">
                         <label>{{ __('Name') }}</label>
-                        <input id="edit-name" type="text" name="name"
-                            class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}"
-                            placeholder="{{ __('Name') }}" value="{{ old('name') }}">
-                        @include('alerts.feedback', ['field' => 'name'])
+                        <input id="edit-name" type="text" name="edit_name"
+                            class="form-control{{ $errors->has('edit_name') ? ' is-invalid' : '' }}"
+                            placeholder="{{ __('Name') }}" value="{{ old('edit_name') }}">
+                        @include('alerts.feedback', ['field' => 'edit_name'])
                     </div>
 
-                    <div class="form-group{{ $errors->has('email') ? ' has-danger' : '' }}">
+                    <div class="form-group{{ $errors->has('edit_email') ? ' has-danger' : '' }}">
                         <label>{{ __('Email address') }}</label>
-                        <input id="edit-email" type="email" name="email"
-                            class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}"
-                            placeholder="{{ __('Email address') }}" value="{{ old('email') }}">
-                        @include('alerts.feedback', ['field' => 'email'])
+                        <input id="edit-email" type="email" name="edit_email"
+                            class="form-control{{ $errors->has('edit_email') ? ' is-invalid' : '' }}"
+                            placeholder="{{ __('Email address') }}" value="{{ old('edit_email') }}">
+                        @include('alerts.feedback', ['field' => 'edit_email'])
                     </div>
 
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">{{ __('Save') }}</button>
+                    <button type="button" class="btn btn-secondary closeModal" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary closeModal">{{ __('Save') }}</button>
                 </div>
             </form>
         </div>
@@ -174,12 +174,15 @@
 
 @push('js')
 <script>
-    
-
     $(document).ready(function() {
-        // Tampilkan modal jika ada kesalahan
-        @if ($errors->any())
+        // Tampilkan modal Add User jika ada kesalahan terkait form Add User
+        @if ($errors->has('name') || $errors->has('email') || $errors->has('password') || $errors->has('password_confirmation'))
             $('#addUser').modal('show');
+        @endif
+
+        // Tampilkan modal Edit User jika ada kesalahan terkait form Edit User
+        @if ($errors->has('edit_name') || $errors->has('edit_email'))
+            $('#editUser').modal('show');
         @endif 
 
         $('#addUser').on('shown.bs.modal', function () {
@@ -188,7 +191,13 @@
             });
         });
 
+        $('#editUser').on('shown.bs.modal', function () {
+            $(this).find('.closeModal').click(function () {
+                $('#editUser').modal('hide');
+            });
+        });
     });
+
     
     
     $(document).ready(function() {

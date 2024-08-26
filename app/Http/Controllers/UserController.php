@@ -24,12 +24,15 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|max:255|unique:users,email,'.$id,
+            'edit_name' => 'required|string|max:255',
+            'edit_email' => 'required|email|max:255|unique:users,email,'.$id,
         ]);
 
         $user = User::findOrFail($id);
-        $user->update($validated);
+        $user->update([
+            'name' => $request->edit_name,
+            'email' => $request->edit_email,
+        ]);
 
         return redirect()->route('user.index')->withStatus(__('User successfully updated.'));
     }
