@@ -30,6 +30,7 @@
         </form>
 
         @include('alerts.success')
+        @include('alerts.error')
 
         <table class="table tablesorter" id="">
             <thead class="text-primary">
@@ -59,7 +60,6 @@
                     </td>
                     <td>{{ $d->created_at }}</td>
                     <td class="text-right">
-
                         <div class="dropdown">
                             <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown"
                                 aria-haspopup="true" aria-expanded="false">
@@ -71,9 +71,12 @@
                                     data-email="{{ $d->email }}" data-url="{{ route('user.update', $d->id) }}">
                                     Edit
                                 </button>
+                                <button type="button" class="dropdown-item delete-button" data-bs-toggle="modal"
+                                    data-bs-target="#deleteModal" data-id="{{ $d->id }}" data-url="{{ route('user.destroy', $d->id) }}">
+                                    Delete
+                                </button>
                             </div>
                         </div>
-
                     </td>
                 </tr>
                 @endforeach
@@ -220,6 +223,31 @@
     </div>
 </div>
 
+<!-- Modal Delete User -->
+<div class="modal fade" id="deleteModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Delete User</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Are you sure to delete data?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <form id="deleteUserForm" method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-primary">Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 @endsection
 
@@ -263,8 +291,6 @@
         });
     });
 
-    
-    
     $(document).ready(function() {
 
         // Ketika tombol edit diklik
@@ -282,9 +308,20 @@
 
             // Atur action form untuk update
             $('#editUserForm').attr('action', userUpdateUrl);
-
         });
-
     });
+
+    $(document).ready(function() {
+        // Ketika tombol delete diklik
+        $('.delete-button').on('click', function() {
+            // Ambil data dari atribut data-*
+            var userId = $(this).data('id');
+            var userDeleteUrl = $(this).data('url');
+
+            // Atur action form untuk delete
+            $('#deleteUserForm').attr('action', userDeleteUrl);
+        });
+    });
+
 </script>
 @endpush

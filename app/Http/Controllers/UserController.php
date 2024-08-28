@@ -88,4 +88,17 @@ class UserController extends Controller
         return redirect()->route('user.index')->withStatus(__('Profile successfully updated.'));
     }
 
+    public function destroy(String $id)
+    {
+        $check = User::findOrFail($id);
+        if(!$check){
+            return redirect()->route('user.index')->withError(__('User cannot finded.'));
+        }
+        try{
+            User::destroy($id);
+            return redirect()->route('user.index')->withStatus(__('User successfully deleted.'));
+        }catch(\Illuminate\Database\QueryException $e){
+            return redirect()->route('user.index')->withError(__('User data failed to be deleted because there is another table associated with this data.'));
+        }
+    }
 }
