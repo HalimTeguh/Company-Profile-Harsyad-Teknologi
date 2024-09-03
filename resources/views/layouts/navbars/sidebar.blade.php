@@ -22,12 +22,6 @@
 
                 <div class="collapse {{ ($pageSlug == 'profile' || $pageSlug == 'User') ? 'show' : '' }}" id="user-menu">
                     <ul class="nav pl-4">
-                        <li @if ($pageSlug == 'profile') class="active" @endif>
-                            <a href="{{ route('profile.edit')  }}">
-                                <i class="tim-icons icon-single-02"></i>
-                                <p>{{ ('User Profile') }}</p>
-                            </a>
-                        </li>
                         <li @if ($pageSlug == 'User') class="active " @endif>
                             <a href="{{ route('user.index')  }}">
                                 <i class="tim-icons icon-bullet-list-67"></i>
@@ -38,8 +32,122 @@
                 </div>
             </li>
 
+            <li>
+                <a data-toggle="collapse" href="#company-menu" aria-expanded="true">
+                    <i class="fas fa-circle-notch" ></i>
+                    <span class="nav-link-text" >{{ ('Company') }}</span>
+                    <b class="caret mt-1"></b>
+                </a>
+
+                <div class="collapse {{ ($pageSlug == 'profile' || $pageSlug == 'Company') ? 'show' : '' }}" id="company-menu">
+                    <ul class="nav pl-4">
+                        <li @if ($pageSlug == 'Company') class="active " @endif>
+                            <a href="{{ route('user.index')  }}">
+                                <i class="tim-icons icon-bullet-list-67"></i>
+                                <p>{{ ('Company Profile') }}</p>
+                            </a>
+                            <a href="{{ route('user.index')  }}">
+                                <i class="tim-icons icon-bullet-list-67"></i>
+                                <p>{{ ('Contact Management') }}</p>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
 
             <li>
+                <a data-toggle="collapse" href="#landingpage-menu" aria-expanded="true">
+                    <i class="fas fa-circle-notch" ></i>
+                    <span class="nav-link-text" >{{ ('Landing Page') }}</span>
+                    <b class="caret mt-1"></b>
+                </a>
+
+                <div class="collapse {{ ($pageSlug == 'profile' || $pageSlug == 'Landing Page') ? 'show' : '' }}" id="landingpage-menu">
+                    <ul class="nav pl-4">
+                        <li @if ($pageSlug == 'Landing Page') class="active " @endif>
+                            <a href="{{ route('user.index')  }}">
+                                <i class="tim-icons icon-bullet-list-67"></i>
+                                <p>{{ ('Service Management') }}</p>
+                            </a>
+                            <a href="{{ route('user.index')  }}">
+                                <i class="tim-icons icon-bullet-list-67"></i>
+                                <p>{{ ('Feedback Manajement') }}</p>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+
+            <li>
+                <a data-toggle="collapse" href="#protofolio-menu" aria-expanded="true">
+                    <i class="fas fa-circle-notch" ></i>
+                    <span class="nav-link-text" >{{ ('Portofolio') }}</span>
+                    <b class="caret mt-1"></b>
+                </a>
+
+                <div class="collapse {{ ($pageSlug == 'profile' || $pageSlug == 'Portofolio') ? 'show' : '' }}" id="protofolio-menu">
+                    <ul class="nav pl-4">
+                        <li @if ($pageSlug == 'Portofolio') class="active " @endif>
+                            <a href="{{ route('user.index')  }}">
+                                <i class="tim-icons icon-bullet-list-67"></i>
+                                <p>{{ ('Project Management') }}</p>
+                            </a>
+                            <a href="{{ route('user.index')  }}">
+                                <i class="tim-icons icon-bullet-list-67"></i>
+                                <p>{{ ('Project Galery') }}</p>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+
+            <li>
+                <a data-toggle="collapse" href="#aboutus-menu" aria-expanded="true">
+                    <i class="fas fa-circle-notch" ></i>
+                    <span class="nav-link-text" >{{ ('About Us') }}</span>
+                    <b class="caret mt-1"></b>
+                </a>
+
+                <div class="collapse {{ ($pageSlug == 'profile' || $pageSlug == 'About Us') ? 'show' : '' }}" id="aboutus-menu">
+                    <ul class="nav pl-4">
+                        <li @if ($pageSlug == 'About Us') class="active " @endif>
+                            <a href="{{ route('user.index')  }}">
+                                <i class="tim-icons icon-bullet-list-67"></i>
+                                <p>{{ ('Visi Misi Company') }}</p>
+                            </a>
+                            <a href="{{ route('user.index')  }}">
+                                <i class="tim-icons icon-bullet-list-67"></i>
+                                <p>{{ ('Values Company') }}</p>
+                            </a>
+                            <a href="{{ route('user.index')  }}">
+                                <i class="tim-icons icon-bullet-list-67"></i>
+                                <p>{{ ('Management Team') }}</p>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+
+            <li>
+                <a data-toggle="collapse" href="#form-menu" aria-expanded="true">
+                    <i class="fas fa-circle-notch" ></i>
+                    <span class="nav-link-text" >{{ ('Form') }}</span>
+                    <b class="caret mt-1"></b>
+                </a>
+
+                <div class="collapse {{ ($pageSlug == 'profile' || $pageSlug == 'Form') ? 'show' : '' }}" id="form-menu">
+                    <ul class="nav pl-4">
+                        <li @if ($pageSlug == 'Form') class="active " @endif>
+                            <a href="{{ route('user.index')  }}">
+                                <i class="tim-icons icon-bullet-list-67"></i>
+                                <p>{{ ('Form Feedback') }}</p>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+
+            {{-- <li>
                 <a data-toggle="collapse" href="#documentation" aria-expanded="true">
                     <i class="fab fa-laravel" ></i>
                     <span class="nav-link-text" >{{ ('Documentation') }}</span>
@@ -104,7 +212,7 @@
                         </li>
                     </ul>
                 </div>
-            </li>
+            </li> --}}
         </ul>
     </div>
 </div>
